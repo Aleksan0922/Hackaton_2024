@@ -235,11 +235,17 @@ a {
 }
 
 .hero-login-container {
-  max-width: 513px;
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   color: var(--text-color);
   font-size: 20px;
   margin: auto;
+}
+
+.hero-login-container > * {
+  max-width: 513px;
 }
 
 .hero-login .input-container {
@@ -288,8 +294,27 @@ a {
   white-space: pre;
 }
 
-.hero-login *:not(:last-child) {
+.hero-login-container > * > *:not(:last-child) {
   margin-bottom: 12px;
+}
+
+.hero-login-container .inline {
+  display: flex;
+  flex-direction: row;
+}
+
+.hero-login-container .inline > *:not(:last-child) {
+  margin-right: 7px;
+}
+
+.hero-login-container .inline > *:last-child {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.hero-login-container .inline > *:first-child {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .hero-login .buttons {
@@ -317,6 +342,16 @@ a {
   padding: 12px 22px;
 }
 
+.hero-login-container .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-login-container > * {
+  margin: 50px;
+}
+
 .hero-login a {
   text-decoration: underline;
 }
@@ -329,11 +364,21 @@ a {
   color: var(--text-color);
   border-radius: 24px;
   padding: 19px;
+  flex-grow: 2;
   font-size: 20px;
-  /* sets just the text color */
-  background-color: transparent;
-  position: relative;
-  white-space: pre;
+}
+
+.hero-test #send-test {
+  position: absolute;
+  background: var(--accent);
+  color: var(--background);
+  font-weight: 600;
+  border-radius: 17px;
+  padding: 0 16px;
+  text-align: center;
+  right: 7px;
+  top: 7px;
+  bottom: 7px;
 }
 
 .hero-test, .hero-test-container {
@@ -425,4 +470,31 @@ a {
 .hero-test-container .test-nav .num-panel input:active {
   padding-top: 10px;
   background: var(--accent);
+}
+
+.hero-diff {
+  display: flex;
+  flex-grow: 3;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-diff-container {
+  text-align: center;
+  font-size: 36px;
+  color: var(--text-color);
+  margin: auto 0 auto 0;
+}
+
+.hero-diff-container > *:not(:last-child) {
+  margin-bottom: 18px;
+}
+
+.hero-diff-container a {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 48px;
+  text-decoration: underline;
 }/*# sourceMappingURL=main.css.map */
