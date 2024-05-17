@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="js/imask.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-row">
+                <nav class="header-nav">
+                    <ul>
+                        <li class="active"><a href="#">Главная</a></li>
+                        <li><a href="#">ЧаВо</a></li>
+                        <li><a href="#">О нас</a></li>
+                    </ul>
+                </nav>
+
+                <nav class="header-nav">
+                    <ul>
+                        <li class="active logo"><a href="#">MathQuest</a></li>
+                    </ul>
+                </nav>
+
+                <nav class="header-nav">
+                    <ul>
+                        <li class="active"><a href="#">Регистрация</a></li>
+                        <li><a href="#">Вход</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="hero-test">
+        <div class="hero-test-container">
+            <div class="formula">
+                <p>D = 5 * g</p>
+            </div>
+            <div class="test-nav">
+                <div style="max-width: 513px;width:100%;position: relative;display:flex;flex-direction:row;">
+                    <input id="test-input" type="text" placeholder="Ответ" autocomplete="off">
+                    <input id="send-test" type="button" value="Отправить">
+                </div>
+                <div class="panel">
+                    <div class="num-panel">
+                        <input onclick="addE(7)" type="button" value="7">
+                        <input onclick="addE(8)" type="button" value="8">
+                        <input onclick="addE(9)" type="button" value="9">
+                        <input onclick="addE(4)" type="button" value="4">
+                        <input onclick="addE(5)" type="button" value="5">
+                        <input onclick="addE(6)" type="button" value="6">
+                        <input onclick="addE(1)" type="button" value="1">
+                        <input onclick="addE(2)" type="button" value="2">
+                        <input onclick="addE(3)" type="button" value="3">
+                    </div>
+                    <div class="num-panel ex-panel">
+                        <input type="button" onclick="addE(0)" value="0">
+                        <input type="button" onclick="addE(',')" id="num-panel-point" value=",">
+                        <input type="button" onclick="erase()" id="num-panel-erase" value="C">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="js/keyboard.js"></script>
+</body>
+</html>

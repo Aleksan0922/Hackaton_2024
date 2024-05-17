@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/css/main.css" type="text/css" rel="stylesheet">
+
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-row">
+                <nav class="header-nav">
+                    <ul>
+                        <li class="active"><a href="#">Главная</a></li>
+                        <li><a href="#">ЧаВо</a></li>
+                        <li><a href="#">О нас</a></li>
+                    </ul>
+                </nav>
+
+                <nav class="header-nav">
+                    <ul>
+                        <li class="active logo"><a href="#">MathQuest</a></li>
+                    </ul>
+                </nav>
+
+                <nav class="header-nav">
+                    <ul>
+                        <li class="active"><a href="#">Регистрация</a></li>
+                        <li><a href="#">Вход</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    {% block content %}{% endblock %}
+</body>
