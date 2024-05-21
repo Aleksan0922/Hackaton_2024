@@ -535,7 +535,7 @@ a {
   display: flex;
   height: 100%;
   flex-direction: column;
-  justify-content: center;
+  margin: auto 0;
 }
 
 .hero-profile-container #username {
@@ -588,4 +588,47 @@ a {
 
 .hero-profile-container #achievements p > span {
   color: var(--accent);
+}
+
+.hero-nopage {
+  display: flex;
+  flex-grow: 3;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.hero-nopage-container {
+  position: relative;
+}
+
+.hero-nopage-container > * {
+  position: absolute;
+}
+
+.hero-nopage-container p {
+  position: relative;
+  font-weight: 600;
+  font-size: 96px;
+  color: var(--text-color);
+}
+
+.hero-nopage-container .text {
+  -webkit-mask-image: url(../images/svg/non.svg);
+          mask-image: url(../images/svg/non.svg);
+  background: var(--text-color);
+  -o-object-fit: fill;
+     object-fit: fill;
+  width: 149px;
+  height: 149px;
+}
+
+.hero-nopage-container .text::after {
+  -webkit-mask-image: url(../images/svg/non.svg);
+          mask-image: url(../images/svg/non.svg);
+  background: var(--text-color);
+  -o-object-fit: fill;
+     object-fit: fill;
+  width: 149px;
+  height: 149px;
 }/*# sourceMappingURL=main.css.map */
