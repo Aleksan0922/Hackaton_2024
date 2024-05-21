@@ -4,12 +4,26 @@
     <div class="hero-login">
         <div class="hero-login-container">
             <div>
-                <input type="text" class="input email" placeholder="Почта">
-                <input type="password" placeholder="Пароль">
-                <div class="buttons">
-                    <input type="button" value="Войти">
-                    <a href="#">нет аккаунта?</a>
-                </div>
+                <form action="" method="post">
+                    {{ form.hidden_tag() }}
+                        {{ form.email(type="text", class="input email", placeholder="Почта") }}<br>
+                        {% for error in form.email.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                        {{ form.password(type="password", class="password", placeholder="Пароль") }}<br>
+                        {% for error in form.password.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    <div class="buttons">
+                        <p>{{ form.submit(type="button", value="Войти") }}</p>
+                        <a href="#">нет аккаунта?</a>
+                    </div>
+                    <div>{{ message }}</div>
+                </form>
             </div>
         </div>
     </div>
