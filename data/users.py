@@ -11,6 +11,8 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
+    name = sqlalchemy.Column(sqlalchemy.String, unique=True, nullable=True)
+    surname = sqlalchemy.Column(sqlalchemy.String, unique=True, nullable=True)
     username = sqlalchemy.Column(sqlalchemy.String, index=True, unique=True, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String, unique=True, nullable=True)
     stat_lvl_1 = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
@@ -20,7 +22,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     total_lvl_2 = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     total_lvl_3 = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    avatar = sqlalchemy.Column(sqlalchemy.String, default='def_avatar.png')
+    avatar = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     def __repr__(self):
         return f'<User> id: {self.id}, username: {self.nickname}'

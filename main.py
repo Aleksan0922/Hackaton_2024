@@ -7,6 +7,9 @@ from wtforms.fields.simple import EmailField
 from wtforms.validators import DataRequired
 
 from werkzeug.utils import secure_filename
+from PIL import ImageDraw, Image
+import numpy as np
+import hashlib
 
 import os
 import random
@@ -20,12 +23,22 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-db_session.global_init("db/users.db")
+db_session.global_init("users.db")
 
 
 class LoginForm(FlaskForm):
     email = EmailField('Почта', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
+    submit = SubmitField('Войти')
+
+
+class RegisterForm(FlaskForm):
+    name = StringField('Имя', validators=[DataRequired()])
+    surname = StringField('Фамилия', validators=[DataRequired()])
+    username = StringField('Никнейм', validators=[DataRequired()])
+    email = EmailField('Почта', validators=[DataRequired()])
+    password = PasswordField('Пароль', validators=[DataRequired()])
+    password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
     submit = SubmitField('Войти')
 
 
@@ -90,6 +103,30 @@ def generate_quiz(type, lvl):
             return f'{num_1 * num_2} : {num_1}', num_2
 
 
+def generate_avatar(nickname: str) -> Image:
+    bytes = hashlib.md5(nickname.encode('utf-8')).digest()
+
+    main_color = bytes[:3]
+    main_color = tuple(channel // 2 + 128 for channel in main_color)
+
+    blocks = np.array([bit == '1' for byte in bytes[3:3+9] for bit in bin(byte)[2:].zfill(8)]).reshape(6, 12)
+    blocks = np.concatenate((blocks, blocks[::-1]), axis=0)
+
+    blocks[0, :] = 0
+    blocks[-1, :] = 0
+    blocks[:, 0] = 0
+    blocks[:, -1] = 0
+
+    img_size = (12, 12)
+    img = Image.new('RGBA', img_size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+
+    for x, y in np.argwhere(blocks):
+        draw.point((x, y), main_color)
+
+    return img
+
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
@@ -114,9 +151,39 @@ def login():
     return render_template('login.html', title='Sign In', form=form)
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def register():
-    pass
+    form = RegisterForm()
+    if form.validate_on_submit():
+        if form.password.data != form.password_again.data:
+            return render_template('signup.html', title='Sign up',
+                                   form=form,
+                                   message="Пароли не совпадают")
+        db_sess = db_session.create_session()
+        if db_sess.query(User).filter(User.email == form.email.data).first():
+            return render_template('signup.html', title='Sign up',
+                                   form=form,
+                                   message="Такой пользователь уже есть")
+        generate_avatar(form.username.data).save(f'{form.username.data}.png')
+        user = User(
+            name=form.name.data,
+            surname=form.surname.data,
+            username=form.username.data,
+            email=form.email.data,
+            stat_lvl_1=0,
+            stat_lvl_2=0,
+            stat_lvl_3=0,
+            total_lvl_1=0,
+            total_lvl_2=0,
+            total_lvl_3=0,
+            avatar=f'{form.username.data}.png'
+        )
+        user.set_password(form.password.data)
+        db_sess.add(user)
+        db_sess.commit()
+        flash('Congratulations, you are now a registered user!', 'success')
+        return redirect(url_for('login'))
+    return render_template('signup.html', title='Sign up', form=form)
 
 
 @app.route('/logout')

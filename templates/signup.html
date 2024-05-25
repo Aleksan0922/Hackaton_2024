@@ -1,59 +1,57 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main.css">
+{% extends "base.html" %}
 
-    <title>Document</title>
-</head>
-<body>
-    <header class="header">
-        <div class="container">
-            <div class="header-row">
-                <nav class="header-nav">
-                    <ul>
-                        <li class="active"><a href="#">Главная</a></li>
-                        <li><a href="#">ЧаВо</a></li>
-                        <li><a href="#">О нас</a></li>
-                    </ul>
-                </nav>
-
-                <nav class="header-nav">
-                    <ul>
-                        <li class="active logo"><a href="#">MathQuest</a></li>
-                    </ul>
-                </nav>
-
-                <nav class="header-nav">
-                    <ul>
-                        <li class="active"><a href="#">Регистрация</a></li>
-                        <li><a href="#">Вход</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
+{% block content %}
     <div class="hero-login">
         <div class="hero-login-container">
-            <div>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
                 <div class="inline">
-                    <input type="text" class="input" placeholder="Имя">
-                    <input type="text" class="input" placeholder="Фамилия">
+                    {{ form.name(class="input", placeholder="Имя") }}<br>
+                    {% for error in form.name.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    {{ form.surname(class="input", placeholder="Фамилия") }}<br>
+                    {% for surname in form.surname.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
                 </div>
-                <input type="email" class="input" placeholder="Почта">
-                <input type="password" style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;" placeholder="Пароль">
-                <input type="password" style="border-top-left-radius: 15px; border-top-right-radius: 15px; margin-top: -5px;" placeholder="Повторите пароль">
+                    {{ form.username(class="input", placeholder="Никнейм") }}<br>
+                    {% for error in form.username.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    {{ form.email(class="input", placeholder="Почта") }}<br>
+                    {% for error in form.email.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    {{ form.password(style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;", placeholder="Пароль") }}<br>
+                    {% for error in form.password.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    {{ form.password_again(style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;", placeholder="Повторите пароль") }}<br>
+                    {% for error in form.password_again.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
                 <div class="buttons">
-                    <input type="button" value="Войти">
-                    <a href="#">нет аккаунта?</a>
+                    <p>{{ form.submit(type="submit", value="Войти") }}</p>
+                    <a href="/login">уже есть аккаунт?</a>
                 </div>
-            </div>
+            </form>
             <div class="info">
                 <p>Пароль должен быть больше 5 символов.</p>
                 <p>Разрешенные символы: a-Z, 0-9, _:!*</p>
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

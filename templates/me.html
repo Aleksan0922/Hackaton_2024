@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="hero-profile">
+        <div class="hero-profile-container">
+            <div class="inline">
+                <img src="https://images.wallpaperscraft.ru/image/single/kot_udivlenie_vzgliad_96597_2560x1600.jpg">
+                <div class="panel">
+                    <p id="username">Вы</p>
+                    <div>
+                        <input type="button" value="Изменить профиль">
+                        <input type="button" class="active" value="Выйти">
+                    </div>
+                </div>
+            </div>
+            <div id="achievements">
+                <p class="h">Статистика</p>
+                <p><span id="">0</span> решено тестов</p>
+                <p><span id="">0</span> раз(а) поймано страниц 404</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
