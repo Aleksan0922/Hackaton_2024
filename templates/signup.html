@@ -6,45 +6,38 @@
             <form action="" method="post">
                 {{ form.hidden_tag() }}
                 <div class="inline">
-                    {{ form.name(class="input", placeholder="Имя") }}<br>
-                    {% for error in form.name.errors %}
-                        <div class="alert alert-danger" role="alert">
-                            {{ error }}
-                        </div>
-                    {% endfor %}
-                    {{ form.surname(class="input", placeholder="Фамилия") }}<br>
-                    {% for surname in form.surname.errors %}
-                        <div class="alert alert-danger" role="alert">
-                            {{ error }}
-                        </div>
-                    {% endfor %}
+                    {{ form.name(class="input", placeholder="Имя") }}
+                    {{ form.surname(class="input", placeholder="Фамилия") }}
                 </div>
-                    {{ form.username(class="input", placeholder="Никнейм") }}<br>
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+                    {{ form.username(class="input", placeholder="Никнейм") }}
                     {% for error in form.username.errors %}
                         <div class="alert alert-danger" role="alert">
                             {{ error }}
                         </div>
                     {% endfor %}
-                    {{ form.email(class="input", placeholder="Почта") }}<br>
+                    {{ form.email(class="input", placeholder="Почта") }}
                     {% for error in form.email.errors %}
                         <div class="alert alert-danger" role="alert">
                             {{ error }}
                         </div>
                     {% endfor %}
-                    {{ form.password(style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;", placeholder="Пароль") }}<br>
+                    {{ form.password(class="input", style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;", placeholder="Пароль") }}
                     {% for error in form.password.errors %}
                         <div class="alert alert-danger" role="alert">
                             {{ error }}
                         </div>
                     {% endfor %}
-                    {{ form.password_again(style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;", placeholder="Повторите пароль") }}<br>
+                    {{ form.password_again(class="input", style="border-top-left-radius: 15px; border-top-right-radius: 15px; margin-top: -5px", placeholder="Повторите пароль") }}
                     {% for error in form.password_again.errors %}
                         <div class="alert alert-danger" role="alert">
                             {{ error }}
                         </div>
                     {% endfor %}
                 <div class="buttons">
-                    <p>{{ form.submit(type="submit", value="Войти") }}</p>
+                    <p>{{ form.submit(class="button", type="submit", value="Войти") }}</p>
                     <a href="/login">уже есть аккаунт?</a>
                 </div>
             </form>

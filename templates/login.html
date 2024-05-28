@@ -11,15 +11,15 @@
                             {{ error }}
                         </div>
                     {% endfor %}
-                    {{ form.password(type="password", class="password", placeholder="Пароль") }}<br>
+                    {{ form.password(type="password", class="input", placeholder="Пароль") }}<br>
                     {% for error in form.password.errors %}
                         <div class="alert alert-danger" role="alert">
                             {{ error }}
                         </div>
                     {% endfor %}
                 <div class="buttons">
-                    <p>{{ form.submit(type="submit", value="Войти") }}</p>
-                    <a href="/signup">нет аккаунта?</a>
+                    <p>{{ form.submit(type="submit", class="button", value="Войти") }}</p>
+                    <a href="/signup">Нет аккаунта?</a>
                 </div>
                 <div>{{ message }}</div>
             </form>
