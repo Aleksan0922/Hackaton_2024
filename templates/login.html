@@ -5,13 +5,13 @@
         <div class="hero-login-container">
             <form action="" method="post">
                 {{ form.hidden_tag() }}
-                    {{ form.email(type="text", class="input email", placeholder="Почта") }}<br>
+                    {{ form.email(type="text", class="input email", placeholder="Почта") }}
                     {% for error in form.email.errors %}
                         <div class="alert alert-danger" role="alert">
                             {{ error }}
                         </div>
                     {% endfor %}
-                    {{ form.password(type="password", class="input", placeholder="Пароль") }}<br>
+                    {{ form.password(type="password", class="input", placeholder="Пароль") }}
                     {% for error in form.password.errors %}
                         <div class="alert alert-danger" role="alert">
                             {{ error }}
