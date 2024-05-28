@@ -164,7 +164,7 @@ def register():
             return render_template('signup.html', title='Sign up',
                                    form=form,
                                    message="Такой пользователь уже есть")
-        generate_avatar(form.username.data).save(f'{form.username.data}.png')
+        generate_avatar(form.username.data).save(f'static/images/{form.username.data}.png')
         user = User(
             name=form.name.data,
             surname=form.surname.data,
