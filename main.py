@@ -193,6 +193,11 @@ def logout():
     return redirect('/')
 
 
+@app.route('/account', methods=['GET'])
+def account():
+    return render_template('me.html')
+
+
 @app.errorhandler(404)
 def not_found(_):
     return make_response(jsonify({'error': 'Not found'}), 404)

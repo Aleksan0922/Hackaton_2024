@@ -1,23 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="hero-profile">
-        <div class="hero-profile-container">
-            <div class="inline">
-                <img src="https://images.wallpaperscraft.ru/image/single/kot_udivlenie_vzgliad_96597_2560x1600.jpg">
-                <div class="panel">
-                    <p id="username">Вы</p>
-                    <div>
-                        <input type="button" value="Изменить профиль">
-                        <input type="button" class="active" value="Выйти">
+    {% if current_user.is_authenticated %}
+        <div class="hero-profile">
+            <div class="hero-profile-container">
+                <div class="inline">
+                    <img src="{{ current_user.avatar }}">
+                    <div class="panel">
+                        <p id="username">{{ current_user.username }}</p>
+                        <div>
+                            <input type="button" value="Изменить профиль">
+                            <input type="button" class="active" value="Выйти">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="achievements">
-                <p class="h">Статистика</p>
-                <p><span id="">0</span> решено тестов</p>
-                <p><span id="">0</span> раз(а) поймано страниц 404</p>
+                <div id="achievements">
+                    <p class="h">Статистика</p>
+                    <p><span id="">{{ current_user.stat_lvl_1 }}</span> решено тестов 1 уровня подряд</p>
+                    <p><span id="">{{ current_user.stat_lvl_2 }}</span> решено тестов 2 уровня подряд</p>
+                    <p><span id="">{{ current_user.stat_lvl_3 }}</span> решено тестов 3 уровня подряд</p>
+                    <p>    ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+                    <p><span id="">{{ current_user.total_lvl_1 }}</span> решено тестов 1 уровня всего</p>
+                    <p><span id="">{{ current_user.total_lvl_2 }}</span> решено тестов 2 уровня всего</p>
+                    <p><span id="">{{ current_user.total_lvl_3 }}</span> решено тестов 3 уровня всего</p>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
