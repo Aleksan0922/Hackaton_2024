@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="hero-diff">
+        <div class="hero-diff-container">
+            <p style="margin-bottom: 32px;">Решение примеров. Выберите тип примеров:</p>
+            <a href="/quest/{{ difficulty }}/+">СЛОЖЕНИЕ</a>
+            <a href="/quest/{{ difficulty }}/-">ВЫЧИТАНИЕ</a>
+            <a href="/quest/{{ difficulty }}/*">УМНОЖЕНИЕ</a>
+            <a href="/quest/{{ difficulty }}/:">ДЕЛЕНИЕ</a>
+        </div>
+    </div>
+{% endblock %}

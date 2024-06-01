@@ -140,9 +140,14 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/quest/<difficulty>', methods=['GET', 'POST'])
-def quest(difficulty):
-    question, answer = generate_quiz('+', difficulty)
+@app.route('/quest/<difficulty>', methods=['GET'])
+def sign(difficulty):
+    return render_template('sign.html', difficulty=difficulty)
+
+
+@app.route('/quest/<difficulty>/<sign>', methods=['GET', 'POST'])
+def quest(difficulty, sign):
+    question, answer = generate_quiz(sign, difficulty)
     return render_template('quest.html', question=question, answer=answer)
 
 
