@@ -1,45 +1,10 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main.css">
+{% extends "base.html" %}
 
-    <script src="js/imask.js"></script>
-
-    <title>Document</title>
-</head>
-<body>
-    <header class="header">
-        <div class="container">
-            <div class="header-row">
-                <nav class="header-nav">
-                    <ul>
-                        <li class="active"><a href="#">Главная</a></li>
-                        <li><a href="#">ЧаВо</a></li>
-                        <li><a href="#">О нас</a></li>
-                    </ul>
-                </nav>
-
-                <nav class="header-nav">
-                    <ul>
-                        <li class="active logo"><a href="#">MathQuest</a></li>
-                    </ul>
-                </nav>
-
-                <nav class="header-nav">
-                    <ul>
-                        <li class="active"><a href="#">Регистрация</a></li>
-                        <li><a href="#">Вход</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
+{% block content %}
     <div class="hero-test">
         <div class="hero-test-container">
             <div class="formula">
-                <p>D = 5 * g</p>
+                <p>{{ question }}</p>
             </div>
             <div class="test-nav">
                 <div style="max-width: 513px;width:100%;position: relative;display:flex;flex-direction:row;">
@@ -68,6 +33,5 @@
         </div>
     </div>
 
-<script src="js/keyboard.js"></script>
-</body>
-</html>
+<script src="../static/js/keyboard.js"></script>
+{% endblock %}

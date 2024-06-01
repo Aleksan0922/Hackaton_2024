@@ -44,63 +44,63 @@ class RegisterForm(FlaskForm):
 
 def generate_quiz(type, lvl):
     if type == '+':
-        if lvl == 1:
+        if lvl == 'easy':
             num_1 = random.randint(0, 10)
             num_2 = random.randint(0, 10)
-            return f'{num_1} + {num_2}', num_1 + num_2
-        if lvl == 2:
+            return f'x = {num_1} + {num_2}', num_1 + num_2
+        if lvl == 'medium':
             num_1 = random.randint(11, 50)
             num_2 = random.randint(11, 50)
             num_3 = random.randint(0, 10)
-            return f'{num_1} + {num_2} + {num_3}', num_1 + num_2 + num_3
-        if lvl == 3:
+            return f'x = {num_1} + {num_2} + {num_3}', num_1 + num_2 + num_3
+        if lvl == 'hard':
             num_1 = random.randint(100, 500)
             num_2 = random.randint(100, 500)
             num_3 = random.randint(11, 100)
             num_4 = random.randint(0, 10)
-            return f'{num_1} + {num_2} + {num_3} + {num_4}', num_1 + num_2 + num_3 + num_4
+            return f'x = {num_1} + {num_2} + {num_3} + {num_4}', num_1 + num_2 + num_3 + num_4
     elif type == '-':
-        if lvl == 1:
+        if lvl == 'easy':
             num_1 = random.randint(0, 10)
             num_2 = random.randint(0, 10)
-            return f'{num_1} - {num_2}', num_1 - num_2
-        if lvl == 2:
+            return f'x = {num_1} - {num_2}', num_1 - num_2
+        if lvl == 'medium':
             num_1 = random.randint(11, 50)
             num_2 = random.randint(11, 50)
             num_3 = random.randint(0, 10)
-            return f'{num_1} - {num_2} - {num_3}', num_1 - num_2 - num_3
-        if lvl == 3:
+            return f'x = {num_1} - {num_2} - {num_3}', num_1 - num_2 - num_3
+        if lvl == 'hard':
             num_1 = random.randint(100, 500)
             num_2 = random.randint(100, 500)
             num_3 = random.randint(11, 100)
             num_4 = random.randint(0, 10)
-            return f'{num_1} - {num_2} - {num_3} - {num_4}', num_1 - num_2 - num_3 - num_4
+            return f'x = {num_1} - {num_2} - {num_3} - {num_4}', num_1 - num_2 - num_3 - num_4
     elif type == '*':
-        if lvl == 1:
+        if lvl == 'easy':
             num_1 = random.randint(0, 10)
             num_2 = random.randint(0, 10)
-            return f'{num_1} * {num_2}', num_1 * num_2
-        if lvl == 2:
+            return f'x = {num_1} * {num_2}', num_1 * num_2
+        if lvl == 'medium':
             num_1 = random.randint(11, 100)
             num_2 = random.randint(0, 10)
-            return f'{num_1} * {num_2}', num_1 * num_2
-        if lvl == 3:
+            return f'x = {num_1} * {num_2}', num_1 * num_2
+        if lvl == 'hard':
             num_1 = random.randint(11, 100)
             num_2 = random.randint(11, 100)
-            return f'{num_1} * {num_2}', num_1 * num_2
+            return f'x = {num_1} * {num_2}', num_1 * num_2
     elif type == ':':
-        if lvl == 1:
+        if lvl == 'easy':
             num_1 = random.randint(0, 10)
             num_2 = random.randint(0, 10)
-            return f'{num_1 * num_2} : {num_1}', num_2
-        if lvl == 2:
+            return f'x = {num_1 * num_2} : {num_1}', num_2
+        if lvl == 'medium':
             num_1 = random.randint(11, 100)
             num_2 = random.randint(0, 10)
-            return f'{num_1 * num_2} : {num_2}', num_1
-        if lvl == 3:
+            return f'x = {num_1 * num_2} : {num_2}', num_1
+        if lvl == 'hard':
             num_1 = random.randint(11, 100)
             num_2 = random.randint(11, 100)
-            return f'{num_1 * num_2} : {num_1}', num_2
+            return f'x = {num_1 * num_2} : {num_1}', num_2
 
 
 def generate_avatar(nickname: str) -> Image:
@@ -135,7 +135,15 @@ def load_user(user_id):
 
 @app.route('/', methods=['GET'])
 def index():
+    if current_user.is_authenticated:
+        return render_template('difficulty.html')
     return render_template('index.html')
+
+
+@app.route('/quest/<difficulty>', methods=['GET', 'POST'])
+def quest(difficulty):
+    question, answer = generate_quiz('+', difficulty)
+    return render_template('quest.html', question=question, answer=answer)
 
 
 @app.route('/login', methods=['GET', 'POST'])
