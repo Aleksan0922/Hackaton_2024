@@ -181,7 +181,27 @@ a {
     color: var(--background-butt-text);
 }
 
-.header-nav li img {
+.header-nav a.user {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-nav a.user > *:not(:last-child) {
+    margin-right: 15px;
+}
+
+.header-nav a.user > img {
+    height: 40px;
+    width: 40px;
+    image-rendering: pixelated;
+    border-radius: 100%;
+    border: 1px solid var(--input-outline);
+}
+
+
+.header-nav li img#menu {
     padding: 16px 14px;
 }
 
@@ -610,6 +630,8 @@ a {
        object-fit: cover;
     -o-object-position: 50% 50%;
        object-position: 50% 50%;
+    image-rendering: pixelated;
+    border: 1px solid var(--input-outline);
 }
   
 .hero-profile-container .inline {
@@ -630,7 +652,7 @@ a {
     margin-bottom: 10px;
 }
   
-.hero-profile-container input[type=button] {
+.hero-profile-container .button {
     padding: 8px 14px;
     font-size: 20px;
     color: var(--background-butt-text);
@@ -638,12 +660,12 @@ a {
     border-radius: 8px;
 }
   
-.hero-profile-container input[type=button]:first-child {
+.hero-profile-container .button:first-child {
     border-top-left-radius: 16px;
     border-bottom-left-radius: 16px;
 }
   
-.hero-profile-container input[type=button]:last-child {
+.hero-profile-container .button:last-child {
     border-top-right-radius: 16px;
     border-bottom-right-radius: 16px;
 }
