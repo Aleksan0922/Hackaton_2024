@@ -151,8 +151,7 @@ a {
     width: 100vw;
     padding-bottom: 10px;
     box-sizing: border-box;
-    backdrop-filter: blur(10px);
-    backface-visibility: .5;
+    backdrop-filter: blur(25px);
     z-index: 10;
     padding-top: 26px;
 }
@@ -239,8 +238,14 @@ a {
 
 .header-mobile {
     display: none;
-    position: fixed;
   }
+
+.header-mobile .header-hero {
+    z-index: 101;
+    position: fixed;
+    top: 0;
+    transition:cubic-bezier(1, 0, 0, 1) 0.2s;
+}
   
 .header-mobile .header {
     margin-top: -1px;
@@ -258,6 +263,7 @@ a {
 }
   
 .header-mobile .catalog {
+    background: var(--background);
     padding: 26px 0;
 }
   
@@ -644,6 +650,10 @@ a {
     display: flex;
     flex-direction: row;
 }
+
+.hero-profile-container .inline {
+    margin: 20px;
+}
   
 .hero-profile-container .panel {
     display: flex;
@@ -708,15 +718,55 @@ a {
 
 
 @media screen and (max-width: 820px) {
+    .hero-login-container > * {
+        margin: 20px;
+    }
+
+    .hero-container {
+        font-size: 40px;
+        color: var(--text-color);
+        margin: auto 0 auto 0;
+    }
+
     .container {
-      margin: 0 20px;
+        margin: 0 20px;
+    }
+
+    .hero-profile-container .inline {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
   
     .header-full {
-      display: none;
+        display: none;
+    }
+
+    .hero-profile-container #achievements {
+        width: calc(100vw - 40px);
+        margin: 20px;
     }
   
     .header-mobile {
-      display: block;
+        display: block;
+    }
+
+    .hero-profile-container #username {
+        font-size: 40px;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .hero-profile-container img {
+        margin: 0;
+    }
+
+    .hero-test-container .formula p {
+        font-size: 18vw;
+    }
+
+    .hero-test-container .test-nav {
+        padding: 0 20px;
     }
   }
