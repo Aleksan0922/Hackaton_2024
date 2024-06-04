@@ -73,6 +73,22 @@
                 </div>
             </header>
         </div>
+
+        <div class="header-account-hero">
+            {% if current_user.is_authenticated %}
+                <nav class="header-nav" style="width: 100%;">
+                    <a class="user" href="/account" style="width: 100%;">
+                        <p style="width: 100%;text-align: right;">{{ current_user.username }}</p>
+                        <img src="../../static/images/{{ current_user.avatar }}">
+                    </a>
+                </nav>
+                {% else %}
+                <nav class="header-nav non-login">
+                    <li class="active"><a href="/signup">Регистрация</a></li>
+                    <li><a href="/login">Вход</a></li>
+                </nav>
+                {% endif %}
+        </div>
     </div>
 
     <script src="../../static/js/menu.js"></script>
