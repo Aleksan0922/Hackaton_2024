@@ -9,8 +9,8 @@
                     <div class="panel">
                         <p id="username">{{ current_user.username }}</p>
                         <div>
-                            <input type="button" value="Изменить профиль">
-                            <input onclick="document.location.href='/logout'" type="button" class="active" value="Выйти">
+                            <input type="button" class="button" value="Изменить профиль">
+                            <input onclick="document.location.href='/logout'" type="button" class="button active" value="Выйти">
                         </div>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                     <p><span id="">{{ current_user.stat_lvl_1 }}</span> решено тестов 1 уровня подряд</p>
                     <p><span id="">{{ current_user.stat_lvl_2 }}</span> решено тестов 2 уровня подряд</p>
                     <p><span id="">{{ current_user.stat_lvl_3 }}</span> решено тестов 3 уровня подряд</p>
-                    <p>    ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+                    <div style="margin-bottom: 5px;"></div>
                     <p><span id="">{{ current_user.total_lvl_1 }}</span> решено тестов 1 уровня всего</p>
                     <p><span id="">{{ current_user.total_lvl_2 }}</span> решено тестов 2 уровня всего</p>
                     <p><span id="">{{ current_user.total_lvl_3 }}</span> решено тестов 3 уровня всего</p>

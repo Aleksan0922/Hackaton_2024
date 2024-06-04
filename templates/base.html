@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../static/css/main.css" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/main.css') }}" type="text/css" rel="stylesheet">
 
     <title>MathQuest</title>
 </head>
@@ -28,7 +28,7 @@
                 <nav class="header-nav">
                     <a class="user" href="/account">
                         <p>{{ current_user.username }}</p>
-                        <img src="static/images/{{ current_user.avatar }}">
+                        <img src="../../static/images/{{ current_user.avatar }}">
                     </a>
                 </nav>
                 {% else %}
@@ -44,7 +44,7 @@
     </header>
 
     <div class="header-mobile">
-        <div class="header-hero">
+        <div class="header-hero" id="menu-mobile">
             <div class="catalog">
                 <div class="container">
                     <div class="header-mobile-container">
@@ -64,7 +64,7 @@
                         </nav>
                         <nav class="header-nav">
                             <ul>
-                                <li class="active"><img id="menu" src="../static/images/svg/arrow.svg"></img></li>
+                                <li class="active" onclick="chmod()"><img id="menu" src="../../static/images/svg/arrow.svg"></img></li>
                             </ul>
                         </nav>
                     </div>
@@ -72,5 +72,8 @@
             </header>
         </div>
     </div>
+
+    <script src="../../static/js/menu.js"></script>
+
     {% block content %}{% endblock %}
 </body>
