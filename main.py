@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, flash, send_from_directory, make_response, jsonify
+from flask import Flask, render_template, redirect, url_for, flash, request, make_response, jsonify
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_wtf import FlaskForm
 
@@ -6,7 +6,6 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, FileF
 from wtforms.fields.simple import EmailField
 from wtforms.validators import DataRequired
 
-from werkzeug.utils import secure_filename
 from PIL import ImageDraw, Image
 import numpy as np
 import hashlib
@@ -39,7 +38,7 @@ class RegisterForm(FlaskForm):
     email = EmailField('Почта', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
-    submit = SubmitField('Войти')
+    submit = SubmitField('Зарегистрироваться')
 
 
 def generate_quiz(type, lvl):
@@ -47,60 +46,60 @@ def generate_quiz(type, lvl):
         if lvl == 'easy':
             num_1 = random.randint(0, 10)
             num_2 = random.randint(0, 10)
-            return f'x = {num_1} + {num_2}', num_1 + num_2
+            return f'x = {num_1} + {num_2}'
         if lvl == 'medium':
             num_1 = random.randint(11, 50)
             num_2 = random.randint(11, 50)
             num_3 = random.randint(0, 10)
-            return f'x = {num_1} + {num_2} + {num_3}', num_1 + num_2 + num_3
+            return f'x = {num_1} + {num_2} + {num_3}'
         if lvl == 'hard':
             num_1 = random.randint(100, 500)
             num_2 = random.randint(100, 500)
             num_3 = random.randint(11, 100)
             num_4 = random.randint(0, 10)
-            return f'x = {num_1} + {num_2} + {num_3} + {num_4}', num_1 + num_2 + num_3 + num_4
+            return f'x = {num_1} + {num_2} + {num_3} + {num_4}'
     elif type == '-':
         if lvl == 'easy':
             num_1 = random.randint(0, 10)
             num_2 = random.randint(0, 10)
-            return f'x = {num_1} - {num_2}', num_1 - num_2
+            return f'x = {num_1} - {num_2}'
         if lvl == 'medium':
             num_1 = random.randint(11, 50)
             num_2 = random.randint(11, 50)
             num_3 = random.randint(0, 10)
-            return f'x = {num_1} - {num_2} - {num_3}', num_1 - num_2 - num_3
+            return f'x = {num_1} - {num_2} - {num_3}'
         if lvl == 'hard':
             num_1 = random.randint(100, 500)
             num_2 = random.randint(100, 500)
             num_3 = random.randint(11, 100)
             num_4 = random.randint(0, 10)
-            return f'x = {num_1} - {num_2} - {num_3} - {num_4}', num_1 - num_2 - num_3 - num_4
+            return f'x = {num_1} - {num_2} - {num_3} - {num_4}'
     elif type == '*':
         if lvl == 'easy':
             num_1 = random.randint(0, 10)
             num_2 = random.randint(0, 10)
-            return f'x = {num_1} * {num_2}', num_1 * num_2
+            return f'x = {num_1} * {num_2}'
         if lvl == 'medium':
             num_1 = random.randint(11, 100)
             num_2 = random.randint(0, 10)
-            return f'x = {num_1} * {num_2}', num_1 * num_2
+            return f'x = {num_1} * {num_2}'
         if lvl == 'hard':
             num_1 = random.randint(11, 100)
             num_2 = random.randint(11, 100)
-            return f'x = {num_1} * {num_2}', num_1 * num_2
+            return f'x = {num_1} * {num_2}'
     elif type == ':':
         if lvl == 'easy':
             num_1 = random.randint(0, 10)
             num_2 = random.randint(0, 10)
-            return f'x = {num_1 * num_2} : {num_1}', num_2
+            return f'x = {num_1 * num_2} : {num_1}'
         if lvl == 'medium':
             num_1 = random.randint(11, 100)
             num_2 = random.randint(0, 10)
-            return f'x = {num_1 * num_2} : {num_2}', num_1
+            return f'x = {num_1 * num_2} : {num_2}'
         if lvl == 'hard':
             num_1 = random.randint(11, 100)
             num_2 = random.randint(11, 100)
-            return f'x = {num_1 * num_2} : {num_1}', num_2
+            return f'x = {num_1 * num_2} : {num_1}'
 
 
 def generate_avatar(nickname: str) -> Image:
@@ -147,8 +146,27 @@ def sign(difficulty):
 
 @app.route('/quest/<difficulty>/<sign>', methods=['GET', 'POST'])
 def quest(difficulty, sign):
-    question, answer = generate_quiz(sign, difficulty)
-    return render_template('quest.html', question=question, answer=answer)
+    if request.method == 'POST':
+        question = request.form.get('quest-question')
+        user_ans = request.form.get('test-input')
+        answer = eval(question)
+        question = generate_quiz(sign, difficulty)
+        if answer == int(user_ans):
+            db_sess = db_session.create_session()
+            user = db_sess.query(User).filter(User.id == current_user.id).first()
+            if difficulty == 'easy':
+                user.total_lvl_1 += 1
+            elif difficulty == 'medium':
+                user.total_lvl_2 += 1
+            elif difficulty == 'hard':
+                user.total_lvl_3 += 1
+            db_sess.commit()
+            return render_template('quest.html', question=question, answer=True)
+        else:
+            print(0)
+            return render_template('quest.html', question=question, answer=False)
+    question = generate_quiz(sign, difficulty)
+    return render_template('quest.html', question=question, answer=None)
 
 
 @app.route('/login', methods=['GET', 'POST'])
