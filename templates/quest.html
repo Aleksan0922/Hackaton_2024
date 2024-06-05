@@ -8,8 +8,11 @@
             </div>
             <div class="test-nav">
                 <div style="max-width: 513px;width:100%;position: relative;display:flex;flex-direction:row;">
-                    <input id="test-input" type="text" placeholder="Ответ" autocomplete="off">
-                    <input id="send-test" type="button" value="Отправить">
+                    <form method="POST" id="quest-form">
+                        <input id="test-input" name="test-input" type="text" placeholder="Ответ" autocomplete="off">
+                        <input id="send-test" type="button" value="Отправить">
+                        <input value="{{ question[4:] }}" type="hidden" name="quest-question">
+                    </form>
                 </div>
                 <div class="panel">
                     <div class="num-panel">
@@ -32,6 +35,11 @@
             </div>
         </div>
     </div>
-
+<script>
+    document.getElementById('send-test').onclick = function(){
+        document.getElementById('quest-form').submit();
+    }
+</script>
 <script src="../../static/js/keyboard.js"></script>
+
 {% endblock %}
