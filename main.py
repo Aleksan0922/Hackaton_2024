@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, flash, request, make_response, jsonify
+from flask import Flask, render_template, redirect, url_for, flash, request, make_response, jsonify, session
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_wtf import FlaskForm
 
@@ -149,9 +149,11 @@ def quest(difficulty, sign):
     if request.method == 'POST':
         question = request.form.get('quest-question')
         user_ans = request.form.get('test-input')
+        question.replace(':', '/')
+        print(question)
         answer = eval(question)
         question = generate_quiz(sign, difficulty)
-        if answer == int(user_ans):
+        if user_ans != '' and answer == int(user_ans):
             db_sess = db_session.create_session()
             user = db_sess.query(User).filter(User.id == current_user.id).first()
             if difficulty == 'easy':
@@ -161,9 +163,32 @@ def quest(difficulty, sign):
             elif difficulty == 'hard':
                 user.total_lvl_3 += 1
             db_sess.commit()
+            if 'winstreak' not in session:
+                session['winstreak'] = {'easy': 0, 'medium': 0, 'hard': 0}
+            if difficulty == 'easy':
+                session['winstreak']['easy'] += 1
+            elif difficulty == 'medium':
+                session['winstreak']['medium'] += 1
+            elif difficulty == 'hard':
+                session['winstreak']['hard'] += 1
             return render_template('quest.html', question=question, answer=True)
         else:
-            print(0)
+            if 'winstreak' in session:
+                db_sess = db_session.create_session()
+                user = db_sess.query(User).filter(User.id == current_user.id).first()
+                if difficulty == 'easy':
+                    if session['winstreak'] > current_user.stat_lvl_1:
+                        user.stat_lvl_1 = session['winstreak']['easy']
+                        session['winstreak']['easy'] = 0
+                elif difficulty == 'medium':
+                    if session['winstreak'] > current_user.stat_lvl_2:
+                        user.stat_lvl_2 = session['winstreak']['medium']
+                        session['winstreak']['medium'] = 0
+                elif difficulty == 'hard':
+                    if session['winstreak'] > current_user.stat_lvl_3:
+                        user.stat_lvl_3 = session['winstreak']['hard']
+                        session['winstreak']['hard'] = 0
+                db_sess.commit()
             return render_template('quest.html', question=question, answer=False)
     question = generate_quiz(sign, difficulty)
     return render_template('quest.html', question=question, answer=None)
