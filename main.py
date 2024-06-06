@@ -149,7 +149,7 @@ def quest(difficulty, sign):
     if request.method == 'POST':
         question = request.form.get('quest-question')
         user_ans = request.form.get('test-input')
-        question.replace(':', '/')
+        question = question.replace(':', '/')
         print(question)
         answer = eval(question)
         question = generate_quiz(sign, difficulty)
