@@ -146,11 +146,11 @@ def sign(difficulty):
 
 @app.route('/quest/<difficulty>/<sign>', methods=['GET', 'POST'])
 def quest(difficulty, sign):
+    print(session['easy'], session['medium'], session['hard'])
     if request.method == 'POST':
         question = request.form.get('quest-question')
         user_ans = request.form.get('test-input')
         question = question.replace(':', '/')
-        print(question)
         answer = eval(question)
         question = generate_quiz(sign, difficulty)
         if user_ans != '' and answer == int(user_ans):
@@ -163,33 +163,32 @@ def quest(difficulty, sign):
             elif difficulty == 'hard':
                 user.total_lvl_3 += 1
             db_sess.commit()
-            if 'winstreak' not in session:
-                session['winstreak'] = {'easy': 0, 'medium': 0, 'hard': 0}
-            if difficulty == 'easy':
-                session['winstreak']['easy'] += 1
-            elif difficulty == 'medium':
-                session['winstreak']['medium'] += 1
-            elif difficulty == 'hard':
-                session['winstreak']['hard'] += 1
+            if difficulty not in session:
+                session['easy'] = 0
+                session['medium'] = 0
+                session['hard'] = 0
+            session[difficulty] += 1
             return render_template('quest.html', question=question, answer=True)
         else:
-            if 'winstreak' in session:
+            if difficulty in session:
                 db_sess = db_session.create_session()
                 user = db_sess.query(User).filter(User.id == current_user.id).first()
                 if difficulty == 'easy':
-                    if session['winstreak'] > current_user.stat_lvl_1:
-                        user.stat_lvl_1 = session['winstreak']['easy']
-                        session['winstreak']['easy'] = 0
+                    if session[difficulty] > current_user.stat_lvl_1:
+                        user.stat_lvl_1 = session['easy']
+                        session['easy'] = 0
                 elif difficulty == 'medium':
-                    if session['winstreak'] > current_user.stat_lvl_2:
-                        user.stat_lvl_2 = session['winstreak']['medium']
-                        session['winstreak']['medium'] = 0
+                    if session[difficulty] > current_user.stat_lvl_2:
+                        user.stat_lvl_2 = session['medium']
+                        session['medium'] = 0
                 elif difficulty == 'hard':
-                    if session['winstreak'] > current_user.stat_lvl_3:
-                        user.stat_lvl_3 = session['winstreak']['hard']
-                        session['winstreak']['hard'] = 0
+                    if session[difficulty] > current_user.stat_lvl_3:
+                        user.stat_lvl_3 = session['hard']
+                        session['hard'] = 0
                 db_sess.commit()
             return render_template('quest.html', question=question, answer=False)
+    if not session.modified:
+        session.modified = True
     question = generate_quiz(sign, difficulty)
     return render_template('quest.html', question=question, answer=None)
 
