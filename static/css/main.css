@@ -389,6 +389,15 @@ a {
 
 
 
+.hero-info {
+    margin-top: 40px;
+}
+
+.hero-info-container {
+    font-size: 20px;
+    color: var(--text-color);
+}
+
 
 .hero-login {
     display: flex;

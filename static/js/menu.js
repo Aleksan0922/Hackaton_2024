@@ -6,7 +6,7 @@ function chmod() {
         document.getElementById('menu-mobile').style.marginTop = '0px'
         IsOpen = false
     } else {
-        document.getElementById('menu-mobile').style.marginTop = 'calc(((44px * 3) + (14px * 2) + 52px) * -1)'
+        document.getElementById('menu-mobile').style.marginTop = 'calc(((44px * 2) + (14px * 1) + 52px) * -1)'
         IsOpen = true
     }
 }
