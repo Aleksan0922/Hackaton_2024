@@ -253,6 +253,11 @@ def account():
     return render_template('me.html')
 
 
+@app.route('/about', methods=['GET'])
+def info():
+    return render_template('info.html')
+
+
 @app.errorhandler(404)
 def not_found(_):
     return make_response(jsonify({'error': 'Not found'}), 404)
