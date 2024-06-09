@@ -3,16 +3,16 @@
 {% block content %}
     <div class="hero-test">
         <div class="hero-test-container">
-            {% if answer == True %}
-                <p>1</p>
-            {% endif %}
-            {% if answer == False %}
-                <p>2</p>
-            {% endif %}
             <div class="formula">
                 <p>{{ question }}</p>
             </div>
             <div class="test-nav">
+                {% if answer == True %}
+                    <p style="background: var(--background-butt-active);color: var(--accent)" class="answer">Верно</p>
+                {% endif %}
+                {% if answer == False %}
+                    <p style="background: var(--background-butt);color: var(--background-butt-text)" class="answer">Неверно</p>
+                {% endif %}
                 <div style="max-width: 513px;width:100%;position: relative;display:flex;flex-direction:row;">
                     <form method="POST" id="quest-form">
                         <input id="test-input" name="test-input" type="text" placeholder="Ответ" autocomplete="off">
@@ -21,6 +21,9 @@
                     </form>
                 </div>
                 <div class="panel">
+                    <div class="num-panel ex-panel">
+                        <input type="button" onclick="addE('-')" id="num-panel-minus" value="-">
+                    </div>
                     <div class="num-panel">
                         <input onclick="addE(7)" type="button" value="7">
                         <input onclick="addE(8)" type="button" value="8">

@@ -543,6 +543,10 @@ a {
     font-size: 20px;
 }
 
+.hero-test #quest-form {
+    width: 100%;
+}
+
 .hero-test #send-test {
     position: absolute;
     background: var(--accent);
@@ -554,6 +558,13 @@ a {
     right: 7px;
     top: 7px;
     bottom: 7px;
+}
+
+.hero-test .answer {
+    text-align: center;
+    width: min-content;
+    padding: 10px;
+    border-radius: 15px;
 }
 
 .hero-test, .hero-test-container {
@@ -846,5 +857,13 @@ a {
         font-weight: 600;
         font-size: 36px;
         text-decoration: underline;
+    }
+
+    .hero-test-container .test-nav .panel {
+        display: none;
+    }
+    
+    .hero-test-container .test-nav {
+        margin-bottom: 40px;
     }
   }

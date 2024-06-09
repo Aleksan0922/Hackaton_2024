@@ -1,8 +1,7 @@
 function init(input, shadow) {
     oninput()
     var lastLen = input.value.length
-
-    // дублируем стили input'a в div, это не обязательно - можно обойтись только конкретными
+  
     const style = getComputedStyle(input);
     const exclude = /\b(fill|stroke|color)\b/;
     Array.from(style).forEach(
@@ -20,7 +19,6 @@ function init(input, shadow) {
       shadow.append(input.value.slice(0, -1));
       shadow.innerHTML = '<span class="text">' + shadow.innerHTML + '</span>'
       
-      // оборачиваем последний символ в анимированый span, по хорошему тут надо оборачивать "разницу" с пердыдущим состоянием, но это уже самостоятельно
       const span = document.createElement('span');
       span.append(input.value.slice(-1));
       

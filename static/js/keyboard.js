@@ -16,6 +16,12 @@ function input() {
         document.querySelector('#num-panel-point').style = 'opacity: 1;pointer-events: all;'
     }
 
+    if (document.querySelector('#test-input').value.includes('-')) {
+        document.querySelector('#num-panel-minus').style = 'opacity: .5;pointer-events: none;'
+    } else {
+        document.querySelector('#num-panel-minus').style = 'opacity: 1;pointer-events: all;'
+    }
+
     if (document.querySelector('#test-input').value.length == 0) {
         document.querySelector('#num-panel-erase').style = 'opacity: .5;pointer-events: none;'
     } else {
