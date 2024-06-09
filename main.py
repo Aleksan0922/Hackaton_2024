@@ -271,7 +271,7 @@ def edit():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         user.name = form.name.data
-        user.surname = form.surname.data,
+        user.surname = form.surname.data
         user.email = form.email.data
         user.set_password(form.password.data)
         db_sess.commit()
