@@ -41,6 +41,15 @@ class RegisterForm(FlaskForm):
     submit = SubmitField('Зарегистрироваться')
 
 
+class EditForm(FlaskForm):
+    name = StringField('Имя', validators=[DataRequired()])
+    surname = StringField('Фамилия', validators=[DataRequired()])
+    email = EmailField('Почта', validators=[DataRequired()])
+    password = PasswordField('Пароль', validators=[DataRequired()])
+    password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
+    submit = SubmitField('Зарегистрироваться')
+
+
 def generate_quiz(type, lvl):
     if type == '+':
         if lvl == 'easy':
@@ -146,7 +155,6 @@ def sign(difficulty):
 
 @app.route('/quest/<difficulty>/<sign>', methods=['GET', 'POST'])
 def quest(difficulty, sign):
-    print(session['easy'], session['medium'], session['hard'])
     if request.method == 'POST':
         question = request.form.get('quest-question')
         user_ans = request.form.get('test-input')
@@ -251,6 +259,25 @@ def logout():
 @app.route('/account', methods=['GET'])
 def account():
     return render_template('me.html')
+
+
+@app.route('/edit_account', methods=['GET', 'POST'])
+def edit():
+    form = EditForm()
+    if form.validate_on_submit():
+        print(1)
+        if form.password.data != form.password_again.data:
+            return render_template('edit_acc.html', title='Edit', form=form, message="Пароли не совпадают")
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.id == current_user.id).first()
+        user.name = form.name.data
+        user.surname = form.surname.data,
+        user.email = form.email.data
+        user.set_password(form.password.data)
+        db_sess.commit()
+        print(1)
+        return redirect(url_for('account'))
+    return render_template('edit_acc.html', title='Edit', form=form)
 
 
 @app.route('/about', methods=['GET'])

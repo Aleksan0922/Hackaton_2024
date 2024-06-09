@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="hero-login">
+        <div class="hero-login-container">
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div class="inline">
+                    {{ form.name(class="input", placeholder="Имя") }}
+                    {{ form.surname(class="input", placeholder="Фамилия") }}
+                </div>
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+                    {{ form.email(class="input", placeholder="Почта") }}
+                    {% for error in form.email.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    {{ form.password(class="input", style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;", placeholder="Пароль") }}
+                    {% for error in form.password.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    {{ form.password_again(class="input", style="border-top-left-radius: 15px; border-top-right-radius: 15px; margin-top: -5px", placeholder="Повторите пароль") }}
+                    {% for error in form.password_again.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                <div class="buttons">
+                    <p>{{ form.submit(class="button", type="submit", value="Изменить") }}</p>
+                    <a href="/login">Уже есть аккаунт?</a>
+                </div>
+            </form>
+            <div class="info">
+                <p>Пароль должен быть больше 5 символов.</p>
+                <p>Разрешенные символы: a-Z, 0-9, _:!*</p>
+                <div>{{ message }}</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

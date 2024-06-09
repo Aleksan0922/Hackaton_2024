@@ -9,7 +9,7 @@
                     <div class="panel">
                         <p id="username">{{ current_user.username }}</p>
                         <div>
-                            <input type="button" class="button" value="Изменить профиль">
+                            <input onclick="document.location.href='/edit_account'" type="button" class="button" value="Изменить профиль">
                             <input onclick="document.location.href='/logout'" type="button" class="button active" value="Выйти">
                         </div>
                     </div>
