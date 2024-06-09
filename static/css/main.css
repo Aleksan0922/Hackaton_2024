@@ -565,6 +565,7 @@ a {
     width: min-content;
     padding: 10px;
     border-radius: 15px;
+    font-size: 26px;
 }
 
 .hero-test, .hero-test-container {
