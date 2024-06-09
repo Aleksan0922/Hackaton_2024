@@ -3,6 +3,12 @@
 {% block content %}
     <div class="hero-test">
         <div class="hero-test-container">
+            {% if answer == True %}
+                <p>1</p>
+            {% endif %}
+            {% if answer == False %}
+                <p>2</p>
+            {% endif %}
             <div class="formula">
                 <p>{{ question }}</p>
             </div>
@@ -41,5 +47,4 @@
     }
 </script>
 <script src="../../static/js/keyboard.js"></script>
-
 {% endblock %}
