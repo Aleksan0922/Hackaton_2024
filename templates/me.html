@@ -15,14 +15,46 @@
                     </div>
                 </div>
                 <div id="achievements">
-                    <p class="h">Статистика</p>
-                    <p><span id="">{{ current_user.stat_lvl_1 }}</span> решено тестов 1 уровня подряд</p>
-                    <p><span id="">{{ current_user.stat_lvl_2 }}</span> решено тестов 2 уровня подряд</p>
-                    <p><span id="">{{ current_user.stat_lvl_3 }}</span> решено тестов 3 уровня подряд</p>
-                    <div style="margin-bottom: 5px;"></div>
-                    <p><span id="">{{ current_user.total_lvl_1 }}</span> решено тестов 1 уровня всего</p>
-                    <p><span id="">{{ current_user.total_lvl_2 }}</span> решено тестов 2 уровня всего</p>
-                    <p><span id="">{{ current_user.total_lvl_3 }}</span> решено тестов 3 уровня всего</p>
+                    <div>
+                        <p class="h">Статистика</p>
+                        <p><span id="">{{ current_user.stat_lvl_1 }}</span> решено тестов 1 уровня подряд</p>
+                        <p><span id="">{{ current_user.stat_lvl_2 }}</span> решено тестов 2 уровня подряд</p>
+                        <p><span id="">{{ current_user.stat_lvl_3 }}</span> решено тестов 3 уровня подряд</p>
+                        <div style="margin-bottom: 5px;"></div>
+                        <p><span id="">{{ current_user.total_lvl_1 }}</span> решено тестов 1 уровня всего</p>
+                        <p><span id="">{{ current_user.total_lvl_2 }}</span> решено тестов 2 уровня всего</p>
+                        <p><span id="">{{ current_user.total_lvl_3 }}</span> решено тестов 3 уровня всего</p>
+                    </div>
+                    <div>
+                        <p class="h">Достижения</p>
+                        {% if current_user.total_lvl_1 >= 10 %}
+                            <p>Ученик 1</p>
+                        {% endif %}
+                        {% if current_user.total_lvl_1 >= 50 %}
+                            <p>Ученик 2</p>
+                        {% endif %}
+                        {% if current_user.total_lvl_1 >= 150 %}
+                            <p>Ученик 3</p>
+                        {% endif %}
+                        {% if current_user.total_lvl_2 >= 10 %}
+                            <p>Студент 1</p>
+                        {% endif %}
+                        {% if current_user.total_lvl_2 >= 50 %}
+                            <p>Студент 2</p>
+                        {% endif %}
+                        {% if current_user.total_lvl_2 >= 150 %}
+                            <p>Студент 3</p>
+                        {% endif %}
+                        {% if current_user.total_lvl_3 >= 10 %}
+                            <p>Магистр 1</p>
+                        {% endif %}
+                        {% if current_user.total_lvl_3 >= 50 %}
+                            <p>Магистр 2</p>
+                        {% endif %}
+                        {% if current_user.total_lvl_3 >= 150 %}
+                            <p>Магистр 3</p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
