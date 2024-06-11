@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='css/main.css') }}" type="text/css" rel="stylesheet">
+
+    <title>MathQuest</title>
+</head>
+<body>
+    <header class="header-full">
+        <div class="container">
+            <div class="header-row">
+                <nav class="header-nav">
+                    <ul>
+                        <li class="active"><a href="/">Главная</a></li>
+                        <li><a href="/about">О нас</a></li>
+                    </ul>
+                </nav>
+
+                <nav class="header-nav">
+                    <ul>
+                        <li class="active logo center"><a href="/">MathQuest</a></li>
+                    </ul>
+                </nav>
+                {% if current_user.is_authenticated %}
+                <nav class="header-nav">
+                    <a class="user" href="/account">
+                        <p>{{ current_user.username }}</p>
+                        <img src="../../static/images/{{ current_user.avatar }}">
+                    </a>
+                </nav>
+                {% else %}
+                <nav class="header-nav">
+                    <ul>
+                        <li class="active"><a href="/signup">Регистрация</a></li>
+                        <li><a href="/login">Вход</a></li>
+                    </ul>
+                </nav>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="header-mobile">
+        <div style="height: 75px;"></div>
+
+        <div class="header-hero" style="margin-top: calc(((44px * 2) + (14px * 1) + 52px) * -1);" id="menu-mobile">
+            <div class="catalog">
+                <div class="container">
+                    <div class="header-mobile-container">
+                        <a class="active" href="/">Главная</a>
+                        <a href="/about">О нас</a>
+                    </div>
+                </div>
+            </div>
+            <header class="header">
+                <div class="container">
+                    <div class="header-row">
+                        <nav class="header-nav">
+                            <ul>
+                                <a href="/" class="active compact-logo">MathQuest</a>
+                            </ul>
+                        </nav>
+                        <nav class="header-nav">
+                            <ul>
+                                <li class="active" onclick="chmod()"><img id="menu" src="../../static/images/svg/arrow.svg"></img></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+
+        <div class="header-account-hero">
+            {% if current_user.is_authenticated %}
+                <nav class="header-nav" style="width: 100%;">
+                    <a class="user" href="/account" style="width: 100%;">
+                        <p style="width: 100%;text-align: right;">{{ current_user.username }}</p>
+                        <img src="../../static/images/{{ current_user.avatar }}">
+                    </a>
+                </nav>
+                {% else %}
+                <nav class="header-nav non-login">
+                    <li class="active"><a href="/signup">Регистрация</a></li>
+                    <li><a href="/login">Вход</a></li>
+                </nav>
+                {% endif %}
+        </div>
+    </div>
+
+    <script src="../../static/js/menu.js"></script>
+
+    <noscript>
+        <div class="upper-notify">
+            <p>Для корректной работы MathQuest необходим включенный javaScript</p>
+        </div>
+    </noscript>
+    
+
+    {% block content %}{% endblock %}
+</body>
